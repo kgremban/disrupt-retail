@@ -10,20 +10,57 @@ HTML_TEMPLATE = Template("""
     """)
 
 @app.route('/')
-def homepage():
+
+@app.route('/index')
+def index():
     return """
     <!DOCTYPE html>
     <html>
-    <form method="GET" action="my_result.php">
-        <input type="text" name="customer_id">
-        <input type="submit">
-    </form>
+    <input type="text" id="txt"><br>
+    <button id="myButton" class="float-left submit-button">Submit</button>
+
+    <script type="text/javascript">
+        document.getElementById("myButton").onclick=function(){
+            var txtVal = document.getElementById("txt").value;
+            if (txtVal=="page2"){
+                window.location.href = "/page2";
+            }
+            if (txtVal=="Kelly"){
+                window.location.href = "https://bing.com";
+            }
+        }
+    </script>
+
     </html>
     """
 
-@app.route('/<customer_id>')
-def image_page(customer_id):
-    return(HTML_TEMPLATE.substitute(customer_id=id))
+@app.route('/page2')
+def image_page():
+    return"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Page Title</title>
+    </head> 
+
+    <body>
+        <img src="./media/1111.jpg" alt="Family shoppers">
+
+        <script type="text/javascript">
+            setTimeout(function(){
+                window.location.href = "/index";
+            }, 5000)
+        </script>
+    </body>
+    </html>
+    """
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
+
+
+
+#    <form method="GET" action="my_result.php">
+#        <input type="text" name="customer_id">
+#        <input type="submit">
+#    </form>
